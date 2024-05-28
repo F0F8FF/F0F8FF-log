@@ -1,6 +1,8 @@
 # F0F8FF-log
 
 개인 블로그 입니다.
+https://fffflog.vercel.app/
+
 
 React + Next.js + TypeScript 를 사용했습니다.
 

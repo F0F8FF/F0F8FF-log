@@ -7,7 +7,7 @@ export default function Page() {
       <h1 className="mb-20 text-2xl font-semibold tracking-tighter">
         F0F8FF.log
       </h1>
-      <p className="lg:text-7xl text-6xl shrink-0 text-gray-900">
+      <p className="lg:text-7xl text-6xl shrink-0 text-gray-900 dark-mode">
           <span className="font-light">{"I'm"}</span>
           <br />
           <span className="font-medium">Backend Developer</span>

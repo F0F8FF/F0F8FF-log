@@ -163,3 +163,7 @@ table {
     display: none;
   }
 }
+
+.dark-mode h1, .dark-mode p {
+  color: white;
+}

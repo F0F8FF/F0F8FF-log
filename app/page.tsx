@@ -7,7 +7,7 @@ export default function Page() {
       <h1 className="mb-20 text-2xl font-semibold tracking-tighter">
         F0F8FF.log
       </h1>
-      <h2 className="lg:text-7xl text-6xl shrink-0 text-gray-900">
+      <p className="lg:text-7xl text-6xl shrink-0">
           <span className="font-light">{"I'm"}</span>
           <br />
           <span className="font-medium">Backend Developer</span>
@@ -15,7 +15,7 @@ export default function Page() {
           <span className="font-light">currently working in Seoul.</span>
           <br />
           <span className="font-light text-5xl">Becoming a full stack developer.</span>
-        </h2>
+        </p>
 
         <Computer />
 

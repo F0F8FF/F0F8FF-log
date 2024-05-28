@@ -27,6 +27,10 @@
   html {
     color-scheme: dark;
   }
+  
+  .dark-mode p {
+    color: white;
+  }
 }
 
 html {
@@ -162,8 +166,4 @@ table {
   .canvas-container {
     display: none;
   }
-}
-
-.dark-mode h1, .dark-mode p {
-  color: white;
 }

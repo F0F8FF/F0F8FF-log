@@ -1,0 +1,20 @@
+---
+title: 'CloneBot — LangChain으로 만든 ChatGPT 클론'
+publishedAt: '2024-05-05'
+summary: 'LangChain과 Streamlit으로 만든 첫 LLM 애플리케이션. 대화 메모리와 프롬프트 체인을 직접 다뤄본 시작점이었습니다.'
+---
+
+LLM을 처음 애플리케이션으로 감싸본 프로젝트입니다.
+LangChain으로 체인과 대화 메모리를 구성하고, Streamlit으로 채팅 UI를 붙였습니다.
+
+- 저장소: [F0F8FF/CloneBot](https://github.com/F0F8FF/CloneBot)
+- 스택: Python · LangChain · OpenAI · Streamlit
+
+## 남은 것
+
+API 호출 한 번으로 끝나는 게 아니라 **대화 상태를 어디에 두느냐**가 애플리케이션의 설계를 결정한다는 걸
+여기서 처음 체감했습니다. 메모리를 어떻게 잘라내고 어떤 컨텍스트를 프롬프트에 넣을지 고민한 경험이
+나중에 RAG 프로젝트에서 컨텍스트를 구성할 때 그대로 이어졌습니다.
+
+Streamlit은 프로토타이핑에는 정말 빨랐지만, 스트리밍 응답과 세밀한 UI 제어가 필요해지면서
+이후 프로젝트는 Next.js로 옮겨갔습니다.

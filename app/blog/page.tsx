@@ -1,14 +1,13 @@
 import { BlogPosts } from 'app/components/posts'
 
 export const metadata = {
-  title: 'Blog',
-  description: 'Read my blog.',
+  title: 'Project',
+  description: '지금까지 만든 프로젝트들을 정리한 기록입니다.',
 }
 
 export default function Page() {
   return (
     <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">My Blog</h1>
       <BlogPosts />
     </section>
   )

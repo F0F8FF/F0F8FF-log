@@ -1,0 +1,56 @@
+---
+title: 'AI 독학 기록 — 강화학습부터 MLOps까지'
+publishedAt: '2025-02-24'
+summary: '딥러닝을 독학하며 만든 20여 개 구현 모음. 강화학습(DQN·A2C·TD3·SAC·PPO·Decision Transformer), NLP, 컴퓨터 비전, 그리고 배포·모니터링까지 직접 써보며 정리했습니다.'
+---
+
+논문과 강의만 보면 아는 것 같아도 막히는 지점이 항상 생겨서,
+개념 하나마다 돌아가는 코드를 직접 써서 남겨둔 저장소입니다.
+지금까지 20개가 넘는 구현이 쌓였습니다.
+
+- 저장소: [F0F8FF/Ai](https://github.com/F0F8FF/Ai)
+- 스택: Python · PyTorch · Transformers · Gymnasium · FastAPI · Docker
+
+## 강화학습
+
+기본 알고리즘부터 오프라인 RL까지 순서대로 구현했습니다.
+
+- **가치 기반** — DQN (CartPole)
+- **액터-크리틱** — A2C / A3C (CartPole)
+- **연속 제어** — TD3 (Pendulum, Hopper, HalfCheetah), Soft Actor-Critic (Walker)
+- **정책 최적화** — 멀티 에이전트 PPO
+- **오프라인 RL** — Decision Transformer 두 편
+  - nuScenes 데이터셋 기반 자율주행 (`AutonomousRL`)
+  - 패혈증 치료 정책 학습 (`medical-decision-transformer`)
+
+같은 문제를 알고리즘만 바꿔 여러 번 풀어보니, 논문의 수식보다
+"왜 이 알고리즘이 나왔는지"가 학습 곡선을 보면서 더 잘 이해됐습니다.
+
+## 자연어 처리
+
+BERT 파인튜닝, 품사 태깅, 워드 임베딩, 감정 분석, 리뷰 분류, 텍스트 생성,
+Word-RNN 텍스트 생성기, 뉴스 요약기, 감정 분석 웹 앱까지 만들었습니다.
+
+특히 **멀티모달 감정 분석**(`emotion_analysis`)은 오디오 인코더와 텍스트 인코더를 만들고
+융합(fusion) 레이어로 합치는 구조로, 실시간 추론과 GUI까지 붙인 가장 규모 있는 작업이었습니다.
+
+## 컴퓨터 비전
+
+MNIST 손글씨 인식, CNN 분류기, CIFAR-10 전이학습,
+EfficientNet-B0 파인튜닝 이진 분류, GAN 이미지 생성, 스타일 트랜스퍼,
+dlib 기반 얼굴 필터.
+
+## MLOps
+
+모델을 학습시키는 것과 서비스하는 것은 다른 일이라, 배포까지 한 번 해봤습니다.
+
+```
+train_model.py  → joblib 모델 저장
+main.py         → FastAPI 추론 서버
+prometheus/     → 메트릭 수집
+docker-compose  → 서버 + Prometheus 함께 기동
+```
+
+추론 지연과 요청 수를 Prometheus로 노출해보고 나서야
+"모델 정확도만으로는 운영을 판단할 수 없다"는 말이 실감났습니다.
+이 경험이 이후 [askdocs](/blog/askdocs-rag-saas)에서 비용·지연 관측을 처음부터 설계에 넣은 이유가 됐습니다.

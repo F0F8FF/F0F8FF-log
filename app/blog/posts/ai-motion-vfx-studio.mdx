@@ -1,0 +1,50 @@
+---
+title: 'AI Motion VFX Studio — 실시간 모션 트래킹으로 VFX 만들기'
+publishedAt: '2026-03-11'
+summary: '웹캠에서 포즈·손·얼굴을 실시간 추적하고 오디오 분석까지 합쳐 OSC로 TouchDesigner에 보내는 인터랙티브 VFX 파이프라인.'
+---
+
+웹캠 영상에서 **포즈·손·얼굴을 실시간 추적**하고 오디오 분석을 결합해,
+결과를 OSC 프로토콜로 TouchDesigner에 보내 인터랙티브 VFX를 만드는 파이프라인입니다.
+
+- 저장소: [F0F8FF/AI-Motion-VFX-Studio](https://github.com/F0F8FF/AI-Motion-VFX-Studio)
+- 스택: Python 3.10+ · MediaPipe Tasks · PyTorch · FastAPI · python-osc · Docker
+
+## 파이프라인
+
+```
+웹캠 ─┐
+      ├─▶ Python AI 파이프라인 ─── OSC(UDP) ──▶ TouchDesigner
+마이크 ┘         │                              (파티클 / GLSL / 인스턴싱)
+                 └─▶ FastAPI 대시보드 (:8000)
+                     MJPEG 카메라 + 오디오 시각화 + 이벤트 로그
+```
+
+## 모듈
+
+- **포즈 추정** — MediaPipe PoseLandmarker, 전신 33개 랜드마크 + 월드 좌표
+- **손 추적** — MediaPipe HandLandmarker, 양손 각 21개 랜드마크
+- **제스처 분류** — PyTorch 커스텀 MLP로 8개 제스처, 규칙 기반 폴백 포함
+- **감정 인식** — 얼굴 기하 특징 분석으로 7개 감정 + arousal/valence 연속값
+- **오디오 리액티브** — numpy FFT로 16밴드 스펙트럼, RMS, 비트 감지, BPM 추정
+
+## 성능과 운영
+
+**병렬 추론.** 포즈·손·얼굴 세 모델을 순차 실행하면 프레임이 밀려서
+`ThreadPoolExecutor`로 병렬 추론하도록 바꿨고, FPS가 약 2~3배 올랐습니다.
+
+**세션 녹화/재생.** 매번 카메라 앞에 서서 테스트하는 게 비효율적이라
+분석 결과를 JSONL로 녹화해두고 카메라 없이 재생할 수 있게 만들었습니다. VFX 쪽 작업만 할 때 특히 유용했습니다.
+
+**커스텀 학습.** CLI로 제스처 데이터를 수집하고 바로 모델을 학습시키는 파이프라인을 붙여
+새 제스처를 추가할 수 있게 했습니다.
+
+CI(GitHub Actions)에서 36개 테스트를 돌리고, Dockerfile과 Compose로 원클릭 배포를 지원합니다.
+
+## 실행
+
+```bash
+python scripts/download_models.py   # MediaPipe 모델 (~40MB)
+python main.py --dashboard --audio  # 풀 기능
+python main.py --play my_session    # 녹화 세션 재생 (카메라 불필요)
+```

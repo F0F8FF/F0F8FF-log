@@ -1,0 +1,34 @@
+---
+title: 'Todo — 등 두드리기로 추가하고 잠금화면에서 지우는 iOS 투두'
+publishedAt: '2026-06-09'
+summary: '앱을 열지 않고 할 일을 관리하는 iOS 앱. 단축어와 등 두드리기로 추가하고, 잠금화면 Live Activity와 위젯에서 바로 체크합니다.'
+---
+
+투두 앱을 쓰다 보면 정작 앱을 여는 게 제일 귀찮습니다.
+그래서 **앱을 열지 않고** 할 일을 넣고 지울 수 있는 iOS 앱을 만들었습니다.
+
+- 저장소: [F0F8FF/Todo-app](https://github.com/F0F8FF/Todo-app)
+- 스택: SwiftUI · App Intents · WidgetKit · ActivityKit · XcodeGen
+
+## 기능
+
+- **추가**: App Intent를 노출해 단축어·Siri로 바로 등록
+- **등 두드리기**: 손쉬운 사용의 뒤로 탭(이중)에 단축어를 연결해 아이폰 뒷면을 두 번 두드리면 입력창이 열림
+- **잠금화면 Live Activity**: 할 일을 큰 글씨로 표시하고, 동그라미를 탭하면 삭제
+- **위젯**: 잠금화면과 홈 화면 중형·대형 위젯에서 바로 체크
+
+## 구조
+
+```
+BigTodo/          메인 앱 (SwiftUI)
+TodoWidget/       위젯 + Live Activity 익스텐션
+Shared/           공유 모델, 저장소, App Intents
+project.yml       XcodeGen 설정
+```
+
+앱과 익스텐션이 같은 데이터를 봐야 하므로 모델·저장소·App Intents를 `Shared`로 분리했습니다.
+프로젝트 파일은 XcodeGen(`project.yml`)으로 생성하도록 해서 타깃 설정을 코드로 관리합니다.
+
+## 요구사항
+
+iOS 17.0 이상, Xcode 16 이상. Live Activity 때문에 실기기에서 실행해야 합니다.

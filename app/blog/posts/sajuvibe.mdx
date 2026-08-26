@@ -1,0 +1,42 @@
+---
+title: '사주 바이브 — 사주팔자로 음악 추천받기'
+publishedAt: '2026-03-06'
+summary: '생년월일시를 넣으면 사주팔자의 오행·음양을 계산하고, AI가 기질에 어울리는 곡을 추천해 Spotify로 바로 재생해주는 웹 서비스.'
+---
+
+생년월일시를 입력하면 사주팔자의 **오행과 음양**을 계산하고,
+AI가 그 기질에 어울리는 음악을 추천해 브라우저에서 바로 재생해주는 서비스입니다.
+
+- 저장소: [F0F8FF/sajuvibe](https://github.com/F0F8FF/sajuvibe)
+- 데모: [saju-vibe.vercel.app](https://saju-vibe.vercel.app)
+- 스택: Next.js 16(App Router) · TypeScript · Tailwind CSS v4 · Google Gemini 2.5 Flash · Spotify Web Playback SDK
+
+## 흐름
+
+```
+생년월일시 + 성별 입력
+   ↓
+사주 계산: 4기둥(년·월·일·시주) → 오행 분포 → 부족한 오행 감지
+   ↓
+Gemini 2.5 Flash: 성격 분석 + 음악 바이브 해석 + 곡 추천
+   ↓
+Spotify 검색 → Web Playback SDK로 재생 (YouTube 링크도 함께)
+```
+
+## 만든 것
+
+- 사주팔자 4기둥 계산과 오행 분포 시각화
+- AI 성격 분석 및 음악 바이브 해석
+- 제목·아티스트·추천 이유가 붙은 **구체적인 곡 추천**
+- **오행 균형 처방** — 부족한 오행을 채워주는 곡을 따로 추천
+- Spotify OAuth 2.0 + Web Playback SDK로 브라우저 내 재생
+- 사주 기반 컬러 팔레트 생성과 결과 공유
+
+## 기억에 남는 부분
+
+재미로 시작했지만 결국 **결정론적 계산과 LLM을 어떻게 나눌지**의 문제였습니다.
+사주 계산은 규칙이 정해져 있으니 코드로 정확히 계산하고(`calculateSaju`, 오행 카운트),
+해석과 곡 추천처럼 정답이 없는 부분만 Gemini에 맡겼습니다.
+LLM에 날짜 계산까지 시키면 틀리기 시작하는데, 계산을 분리해두니 결과가 안정적이었습니다.
+
+Spotify는 OAuth 콜백과 토큰 갱신 라우트를 따로 두고, 재생은 Web Playback SDK로 처리했습니다.

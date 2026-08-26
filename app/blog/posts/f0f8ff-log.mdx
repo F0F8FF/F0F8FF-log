@@ -1,0 +1,35 @@
+---
+title: 'F0F8FF.log — 3D 모델을 올린 블로그'
+publishedAt: '2024-05-28'
+summary: 'Next.js App Router와 MDX로 만든 이 블로그. React Three Fiber로 3D 컴퓨터 모델을 띄웠습니다.'
+---
+
+지금 보고 있는 이 블로그입니다. 글은 MDX 파일로 관리하고, 메인 화면에는 3D 모델을 띄웠습니다.
+
+- 저장소: [F0F8FF/F0F8FF-log](https://github.com/F0F8FF/F0F8FF-log)
+- 스택: Next.js(App Router) · TypeScript · Tailwind CSS v4 · MDX · React Three Fiber
+
+## 구성
+
+```
+app/
+├─ blog/
+│  ├─ posts/        MDX 글
+│  ├─ utils.ts      프론트매터 파싱 + 목록 생성
+│  └─ [slug]/       글 상세 (동적 정적 생성)
+├─ components/
+│  ├─ mdx.tsx       MDX 커스텀 컴포넌트
+│  └─ model.tsx     R3F 3D 모델
+├─ og/              OG 이미지 동적 생성
+├─ rss/             RSS 피드
+└─ sitemap.ts
+```
+
+DB 없이 파일 시스템에서 MDX를 읽어 정적 생성합니다.
+글을 추가하려면 `app/blog/posts/`에 `.mdx` 파일 하나만 넣으면 되고,
+프론트매터의 제목·날짜·요약을 목록과 메타데이터, OG 이미지, RSS가 함께 씁니다.
+
+## 3D 모델
+
+메인 화면의 컴퓨터 모델은 React Three Fiber와 Drei로 렌더링합니다.
+glTF 모델을 `gltfjsx`로 컴포넌트화해서 불러오고, 모바일에서는 성능과 레이아웃 때문에 숨겼습니다.

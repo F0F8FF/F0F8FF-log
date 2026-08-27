@@ -7,7 +7,8 @@ export default function Page() {
       <h1 className="mb-20 text-2xl font-semibold tracking-tighter">
         F0F8FF.log
       </h1>
-      <p className="lg:text-7xl text-6xl shrink-0">
+      <div className="relative md:static">
+        <p className="relative z-10 lg:text-7xl text-6xl shrink-0">
           <span className="font-light">{"I'm"}</span>
           <br />
           <span className="font-medium">Backend Developer</span>
@@ -18,6 +19,7 @@ export default function Page() {
         </p>
 
         <Computer />
+      </div>
 
       {/* <div className="my-8">
         <BlogPosts />

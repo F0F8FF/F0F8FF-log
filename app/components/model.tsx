@@ -33,7 +33,7 @@ const Models = [
   export const Computer = () => {
     return (
         <div className="canvas-container">
-            <Canvas camera = {{ position : [0,1,-1]}} gl={{ antialias: true }}  style={{width: "500px", height: "500px", overflow: "hidden", backgroundPosition: "center"}}>
+            <Canvas camera = {{ position : [0,1,-1]}} gl={{ antialias: true }}  style={{width: "100%", height: "100%", overflow: "hidden"}}>
                 <Environment preset="city" />
                 <Suspense>
                     <RotatingModel url={Models[0].url} />

@@ -154,12 +154,28 @@ table {
   top: 63%;
   right: 0;
   transform: translateY(-50%);
-  padding: 0px 5em 0px 0em;
-  overflow-x: auto;
+  margin-right: 5em;
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .canvas-container {
-    display: none;
+    inset: 0;
+    width: auto;
+    height: auto;
+    margin: 0;
+    transform: none;
+    opacity: 0.7;
+  }
+
+  /* The model sits behind the hero text here, so it must not swallow scroll gestures.
+     R3F sets pointer-events and OrbitControls sets touch-action inline, hence !important. */
+  .canvas-container,
+  .canvas-container > div,
+  .canvas-container canvas {
+    pointer-events: none !important;
+    touch-action: auto !important;
   }
 }
